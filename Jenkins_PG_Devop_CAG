@@ -16,11 +16,13 @@ pipeline{
 
         stage ('Code Compile') {    // This is multi-line 
                 steps{
+                   catchError (buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                    sh """                   
                    echo "compile code"
                    mvn compile
                    """
                 }
+             }
         }
 
         stage ('JUNIT Test') {    // This is a JUNIT Test
@@ -42,4 +44,10 @@ pipeline{
         }
             
     }
+    // POST STARTS HERE
+  post {
+        always{
+            junit 'target/surefire-reports/**/*.xml'
+        }
+    }  
 }
