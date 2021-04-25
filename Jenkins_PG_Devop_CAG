@@ -25,6 +25,15 @@ pipeline{
              }
         }
 
+        stage ('test ErrorCatch') {          // ONLY TO SHOW IF 'Code Compile' FAILS, THE 'test ErrorCatch' STILL GETS EXECUTED
+                steps{
+                   sh """          
+                   echo "Carlos THIS IS THE test ErrorCatch Demo"
+                   """
+                }                
+        }
+
+
         stage ('JUNIT Test') {    // This is a JUNIT Test
                 steps{
                    sh """                   
