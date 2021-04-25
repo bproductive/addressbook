@@ -1,0 +1,45 @@
+pipeline{
+         agent {              // where we want to run this pipeline
+             label 'master'
+         }
+         tools {
+             maven 'Mavenathome'
+             jdk 'Java8athome'
+         }
+    stages{
+
+        stage ('Checkout the code') {
+                steps{
+                    git branch: 'master', url:  'https://github.com/bproductive/addressbook.git'
+                }
+        }
+
+        stage ('Code Compile') {    // This is multi-line 
+                steps{
+                   sh """                   
+                   echo "compile code"
+                   mvn compile
+                   """
+                }
+        }
+
+        stage ('JUNIT Test') {    // This is a JUNIT Test
+                steps{
+                   sh """                   
+                   echo "JUNIT TEST"
+                   mvn test
+                   """
+                }
+        }
+
+        stage ('Packaging') {          // converting it into deployable code. Will create a WAR file from the souce code./
+                steps{
+                   sh """          
+                   echo "package code"
+                   mvn package
+                   """
+                }                
+        }
+            
+    }
+}
