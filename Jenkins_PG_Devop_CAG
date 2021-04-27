@@ -53,10 +53,5 @@ pipeline{
         }
             
     }
-    // POST STARTS HERE
-  post {
-        always{
-            junit 'target/surefire-reports/**/*.xml'
-        }
-    }  
+
 }
